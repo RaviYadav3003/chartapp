@@ -1,0 +1,45 @@
+* {
+    text-decoration: none;
+}
+
+a {
+    color: white;
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 10;
+    padding: 20px;
+    background-color: #2d3480;
+    position: sticky;
+    top: 0px;
+    gap: 2rem;
+    z-index: 1;
+}
+
+.nav-name {
+    font-weight: 600;
+    font-size: larger;
+    color: aqua;
+}
+
+
+.header-profile nav{
+    display: flex;
+    gap: 1rem;
+}
+
+
+
+
+@media only screen and (max-width: 576px) {
+    .navbar-container {
+        flex-direction: column; 
+        padding: 10px; 
+        gap : 1rem;
+        align-items: center;
+    }
+
+}

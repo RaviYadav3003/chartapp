@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+
+import Home from "./Components/Home";
+import ChartComponent from "./Components/ChartComponent";
+import { RequiresAuth } from "./Components/Auth/RequiresAuth";
+import { Navbar } from "./Components/Navbar";
+import { useDataContext } from "./Context/DataContext";
+import { Login } from "./Components/Login";
+import { SignUp } from "./Components/Signup";
 
 function App() {
+  const { highValue, userData, convertedData, filtersData } = useDataContext();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/chart"
+          element={
+            <RequiresAuth>
+              <ChartComponent />
+            </RequiresAuth>
+          }
+        />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
     </div>
   );
 }

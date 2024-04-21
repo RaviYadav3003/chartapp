@@ -1,0 +1,66 @@
+
+
+.register-body {
+    background-color:rgb(196 207 217);;
+    width: 100%;
+    height: 649px;
+    display: flex;
+    justify-content: center;
+}
+
+.loginpage {
+    width: 30%;
+    margin-top: 6%;
+    margin-bottom: 3%;
+}
+
+.loginId {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 7%;
+    background-color: white;
+}
+
+.loginMargin {
+    padding-bottom: 8%;
+}
+
+.loginSize {
+    font-weight: 700;
+    font-size: 20px;
+    color: #424553;
+    font-family: Assistant, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    ;
+}
+
+.input-Css {
+    width: 87%;
+    padding: 3%;
+    border: 1px solid #d4d5d9;
+    margin-bottom: 3%;
+}
+
+.terms{
+    font-family: Assistant, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #535766;
+    font-size: 12px;
+}
+
+.spanColor{
+    color: rgb(54, 116, 170);;
+    cursor: pointer;
+}
+
+.buttonCss {
+    padding-bottom: 3%;
+    width: 90%;
+    background-color: rgb(54, 116, 170);
+    border: none;
+    padding-top: 3%;
+    color: white;
+}
+
+.buttonMargin{
+    margin-bottom: 3%;
+    cursor: pointer;
+}

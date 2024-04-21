@@ -1,0 +1,37 @@
+.dateFilterContainer {
+ display: flex;
+ gap: 1rem;
+ align-items: center;
+ justify-content: center;
+ margin: 1rem;
+ flex-wrap: wrap;
+}
+
+.shareUrl{
+ padding: 0.3rem;
+ color: white;
+ font-weight: bold;
+ background-color: rgb(59, 175, 214);
+ border-radius: 0.5rem;
+}
+.ResetButton{
+ padding: 0.3rem;
+ color: white;
+ font-weight: bold;
+ background-color: #3bafd6;
+ border-radius: 0.5rem;
+}
+.shareUrl:hover, .ResetButton:hover{
+ cursor: pointer;
+ background-color:#177487 ;
+}
+.startDate > input,  .endDate > input{
+padding: 0.2rem;
+border-radius: 0.5rem;
+border-color: #3bafd6;  
+font-size: 0.9rem;
+}
+
+.endDate, .startDate{ 
+  font-weight: bolder;
+}

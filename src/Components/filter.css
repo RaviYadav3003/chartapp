@@ -1,0 +1,22 @@
+.filterContainer{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+   }
+
+.age> select, .gender> select{padding: 0.2rem;
+    border-radius: 0.5rem;
+    border-color: #3bafd6;  
+    font-size: 0.9rem;
+    margin-left: 0.3rem;
+}
+
+.age > select:hover, .gender > select:hover {
+    cursor: pointer;
+}
+
+.age , .gender{
+    font-weight: bold;
+}
