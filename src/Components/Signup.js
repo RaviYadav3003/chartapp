@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const SignUp = () => {
   const [userData, setUserData] = useState({
@@ -10,14 +11,29 @@ export const SignUp = () => {
     password: "",
   });
   const navigate = useNavigate();
+
   const formValue = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
+  };
+
+  const isEmailValid = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   };
 
   const formSubmit = (event) => {
     event.preventDefault();
     if (userData.name && userData.email && userData.password) {
+      if (!isEmailValid(userData.email)) {
+        toast.error("Please enter a valid email address");
+        return;
+      }
       const userArray = JSON.parse(localStorage.getItem("Users")) || [];
+      const existingUser = userArray.find(user => user.email === userData.email);
+      if (existingUser) {
+        toast.error("An account with this email already exists");
+        return;
+      }
       const userObj = {
         name: userData.name,
         email: userData.email,
@@ -28,7 +44,7 @@ export const SignUp = () => {
       toast.success("Registration Successfull");
       navigate("/login");
     } else {
-      toast.info("please fill all data");
+      toast.info("Please fill in all data");
     }
   };
 
@@ -55,6 +71,8 @@ export const SignUp = () => {
               name="email"
               onChange={formValue}
               placeholder="Enter Email"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              title="Please enter a valid email address"
             />
             <input
               type="text"
@@ -83,3 +101,4 @@ export const SignUp = () => {
     </div>
   );
 };
+

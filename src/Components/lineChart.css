@@ -1,0 +1,9 @@
+.lineChart{
+    width: 50% ;
+    height: 300px;
+}
+@media screen and (max-width: 768px) {
+    .lineChart {
+        width :80%  !important; 
+    }
+  }

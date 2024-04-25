@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { useDataContext } from "../Context/DataContext";
 import "./login.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Login = () => {
   const { setIsLoggedIn } = useDataContext();
@@ -32,24 +33,25 @@ export const Login = () => {
           toast("login successfull");
           setuserdata({ email: "", password: "" });
           setIsLoggedIn(true);
-          navigate(location?.state?.from?.pathname);
+          navigate("/chart");
           break;
         }
       }
 
       if (flag == false) {
-        toast("Your email or password is incorrect");
+        toast.error("Your email or password is incorrect");
       }
     } else {
-      toast("Please fill all details");
+      toast.info("Please fill all details");
     }
   };
 
   const guestLogin = () => {
     setuserdata({ email: "testuser", password: "123" });
     setIsLoggedIn(true);
-    toast("guest login successfully");
-    navigate(location?.state?.from?.pathname);
+    toast.success("guest login successfully");
+    navigate("/chart");
+
   };
   return (
     <div className="register-body">

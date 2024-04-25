@@ -1,0 +1,11 @@
+.chartsContainer{
+    width: 100%;
+    display: flex;
+flex-direction: row;
+}
+
+@media screen and (max-width: 768px) {
+    .chartsContainer {
+      flex-direction: column;
+    }
+  }

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./DateFilter.css"
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDataContext } from "../Context/DataContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 export const DateFilter = () => {
-  const { setFiltersData, setIsFilterData, selectedGender, setSelectedGender,
-    selectedAge, setSelectedAge, setConvertedData, data } = useDataContext();
-  const navigate = useNavigate();
+  const { setFiltersData, setIsFilterData, setSelectedGender,
+    setSelectedAge, setConvertedData, data } = useDataContext();
   const location = useLocation();
 
-  // Function to get cookie
   const getCookie = (name) => {
     const nameEQ = name + "=";
     const cookies = document.cookie.split(";");
@@ -25,7 +24,6 @@ export const DateFilter = () => {
     return null;
   };
 
-  // Function to set cookie
   const setCookie = (name, value, days = 30) => {
     const date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
@@ -33,31 +31,37 @@ export const DateFilter = () => {
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
   };
 
-  // Function to delete cookie
   const deleteCookie = (name) => {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   };
 
   const [start, setStart] = useState(() => {
-    // Check if start date is stored in cookies, otherwise use default value
     const startDateFromCookie = getCookie("startDate");
     return startDateFromCookie ? new Date(startDateFromCookie) : new Date("2022-10-04");
   });
 
   const [end, setEnd] = useState(() => {
-    // Check if end date is stored in cookies, otherwise use default value
     const endDateFromCookie = getCookie("endDate");
-    return endDateFromCookie ? new Date(endDateFromCookie) : new Date("2022-10-31");
+    return endDateFromCookie ? new Date(endDateFromCookie) : new Date("2022-10-29");
   });
 
   useEffect(() => {
+    const filtersDataFromCookie = JSON.parse(getCookie("filtersData")) || [];
+    setFiltersData(filtersDataFromCookie);
+    setConvertedData(filtersDataFromCookie);
+    setIsFilterData(true);
+
     const params = new URLSearchParams(location.search);
     const startDateParam = params.get("start");
     const endDateParam = params.get("end");
     if (startDateParam && endDateParam) {
-      setStart(new Date(startDateParam));
-      setEnd(new Date(endDateParam));
-      filterDate(new Date(startDateParam), new Date(endDateParam));
+      const startDate = new Date(startDateParam);
+      const endDate = new Date(endDateParam);
+      setStart(startDate);
+      setEnd(endDate);
+      filterDate(startDate, endDate);
+    } else {
+      filterDate(start, end);
     }
   }, [location.search]);
 
@@ -71,8 +75,7 @@ export const DateFilter = () => {
     setFiltersData(filteredData);
     setConvertedData(filteredData)
 
-    setCookie("filtersData", JSON.stringify(filteredData));
-    // Save start and end dates to cookies
+    setCookie("filtersData", JSON.stringify(filteredData), 30);
     setCookie("startDate", startDate.toISOString());
     setCookie("endDate", endDate.toISOString());
   };
@@ -80,13 +83,13 @@ export const DateFilter = () => {
   const handleStartDateChange = (e) => {
     const newStartDate = new Date(e.target.value);
     setStart(newStartDate);
-    filterDate(newStartDate, end); // Filter data whenever start date changes
+    filterDate(newStartDate, end);
   };
 
   const handleEndDateChange = (e) => {
     const newEndDate = new Date(e.target.value);
     setEnd(newEndDate);
-    filterDate(start, newEndDate); // Filter data whenever end date changes
+    filterDate(start, newEndDate);
   };
 
   const generateShareURL = () => {
@@ -95,31 +98,29 @@ export const DateFilter = () => {
     queryParams.set("end", end.toISOString().split("T")[0]);
     const shareURL = `${window.location.origin}${window.location.pathname}?${queryParams.toString()}`;
     navigator.clipboard.writeText(shareURL);
-    alert("URL copied to clipboard!");
+    toast.success("URL copied to clipboard!");
   };
 
   const resetPreferences = () => {
-    // Clear cookies for start and end dates
     deleteCookie("startDate");
     deleteCookie("endDate");
     deleteCookie("selectedGender");
     deleteCookie("selectedAge");
 
-    // Reset state to default values
     setStart(new Date("2022-10-04"));
-    setEnd(new Date("2022-10-31"));
+    setEnd(new Date("2022-10-29"));
     setSelectedAge("")
     setSelectedGender("")
-    // Filter data with default dates
-    filterDate(new Date("2022-10-04"), new Date("2022-10-31"));
+    filterDate(new Date("2022-10-04"), new Date("2022-10-29"));
   };
+
 
   return (
     <div className="dateFilterContainer">
       <label className="startDate" htmlFor="start">Start: <input
         type="date"
         min="2022-10-04"
-        max="2022-10-30"
+        max="2022-10-29"
         name="start"
         id="start"
         value={start.toISOString().split("T")[0]}
@@ -129,16 +130,15 @@ export const DateFilter = () => {
       <label className="endDate" htmlFor="end">End: <input
         type="date"
         min="2022-10-05"
-        max="2022-10-30"
+        max="2022-10-29"
         name="End"
         id="End"
         value={end.toISOString().split("T")[0]}
         onChange={handleEndDateChange}
       /></label>
-
-      {/* <button onClick={() => filterDate(start, end)}>Filter</button> */}
       <button className="shareUrl" onClick={generateShareURL}>Share URL</button>
       <button className="ResetButton" onClick={resetPreferences}>Reset Preferences</button>
+      <ToastContainer />
     </div>
   );
 };

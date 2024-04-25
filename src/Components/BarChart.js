@@ -1,8 +1,9 @@
 import { Bar } from "react-chartjs-2";
 import { Chart as Chartjs } from "chart.js/auto";
 import { useDataContext } from "../Context/DataContext";
+import "./barChart.css"
 const BarChart = () => {
-  const { filtersData, setClickedData , userData  } = useDataContext();
+  const { filtersData, setClickedData, userData } = useDataContext();
   const barChartClicked = (event, array) => {
     const clickedValue = array[0]?.index;
     const feats = ["A", "B", "C", "D", "E", "F"];

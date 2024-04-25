@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -6,13 +6,10 @@ import Home from "./Components/Home";
 import ChartComponent from "./Components/ChartComponent";
 import { RequiresAuth } from "./Components/Auth/RequiresAuth";
 import { Navbar } from "./Components/Navbar";
-import { useDataContext } from "./Context/DataContext";
 import { Login } from "./Components/Login";
 import { SignUp } from "./Components/Signup";
 
 function App() {
-  const { highValue, userData, convertedData, filtersData } = useDataContext();
-
   return (
     <div className="App">
       <Navbar />
