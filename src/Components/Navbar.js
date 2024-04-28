@@ -18,7 +18,7 @@ export const Navbar = () => {
     <>
       <div className="navbar-container">
         <nav className="nav-name">
-          <NavLink to="/">Chart-App</NavLink>
+          <NavLink to="/">IDV-Dashboard</NavLink>
         </nav>
 
         <div className="header-profile">
